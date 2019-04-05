@@ -19,6 +19,14 @@ const UserSchema = new Schema({
   }]
 });
 
+//we don't use arrow because model is available as this
+//this === 'joe'
+UserSchema.pre('remove', function(next) {
+  const BlogPost = mongoose.model('blogPost');
+  BlogPost.remove({ _id: { $in: this.blogPosts } })
+    .then(() =>  next());
+})
+
 UserSchema.virtual('postCount').get(function() { 
   return this.posts.length;
 });

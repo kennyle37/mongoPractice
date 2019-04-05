@@ -15,8 +15,13 @@ before((done) => {
 //run before each test
 beforeEach((done) => { //pass done to let the beforeEach know that when done, execute next test
   //make a direct reference to the collection of our users inside our data base
-  mongoose.connection.collections.users.drop(() => {
-    //ready to run the next test
-    done();
+  const { users, comments, blogposts } = mongoose.connection.collections;
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        //ready to run the next test
+        done();
+      })
+    })
   });
 })

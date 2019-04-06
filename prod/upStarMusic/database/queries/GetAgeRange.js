@@ -8,11 +8,11 @@ const Artist = require('../models/artist');
 module.exports = () => {
   const ageRange = {};
 
-  Artist.find({})
+  return Artist.find({})
     .sort({ age: 1 })
-    .then((artist) => {
-      ageRange.min = artist[0].age;
-      ageRange.max = artist[artist.length - 1].age;
+    .then((artists) => {
+      ageRange.min = artists[0].age;
+      ageRange.max = artists[artists.length - 1].age;
       return ageRange;
     });
 };

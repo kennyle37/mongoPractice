@@ -6,5 +6,5 @@ const Artist = require('../models/artist');
  * @return {promise} A promise that resolves after the update
  */
 module.exports = (_ids) => {
-  return Artist.findByIdAndUpdate([{ _ids }], { retired: false });
+  return Artist.updateMany({ _id: _ids }, { $set: { retired: false }})
 };
